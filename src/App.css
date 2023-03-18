@@ -1,38 +1,265 @@
-.App {
+:root{
+  --SATblue: rgb(8, 142, 251);
+}
+
+.App, .AppQuestions {
+  text-align: center; 
+}
+
+div.header{
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+
+ul.sections{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: -200px;
+  margin-right: auto;
+}
+.sectionTitle{
+  color: var(--SATblue);
+  font-size: 25px;
+  display: inline-block;
+  margin-left: 100px;
+  
+}
+.sectionTitleCurrent{
+  color: var(--SATblue);
+  font-size: 25px;
+  display: inline-block;
+  margin-left: 100px;
+  /*idk why line below works but it do*/
+  margin-right: -47px;
+ 
+  width: auto;
+  font-weight: bold;
+  border: 5px solid rgba(255, 255, 255, 0.936);
+  border-radius: 25px;
+}
+
+h1{
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.testSelectorDropDown{
+  border-radius: 15px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+a{
+  text-align: center;
+
+  color: rgba(245, 245, 245, 0.893);
+  font-size: 15px;
+
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+span{
+  text-decoration: underline;
+}
+
+ul{
+  display: inline-block;
+  list-style:none;
+  margin-left: -35px;
+  margin-right: auto;
+}
+li{
+  text-align: center;
+  padding: 10px;
+  margin: 5px;
+  width: 40px;
+  list-style-position:inside;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  cursor: pointer;
+}
+li.choices{
+  border: 2px solid black;
+  border-radius: 25px;
+}
+li.choices:hover{
+  background-color: whitesmoke;
+}
+
+
+/*div for score that matters (100-400*/
+.curvedScore{
+  font-size: 50px;
+  font-family: sans-serif;
+  font-weight: bold;
+  border: 8px var(--SATblue) solid;
+  border-radius: 30px;
+  background-color: var(--SATblue);
   color: white;
+  
+  width: 300px;
+
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.App-link {
-  color: #61dafb;
+
+/*Table for end results*/
+.correct, .correctNum{
+  color: green;
+}
+.incorrect, .incorrectNum{
+  color: red;
+}
+.correctNum, .incorrectNum{
+  font-weight: bold;
+}
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border:1px solid black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+th{
+  width: 100px;
 }
+div.final-results{
+  padding-bottom: 50px;
+}
+
+
+/*Frq*/
+div.FrqOptions{
+  margin-bottom: 50px;
+  margin-top: 50px;
+
+}
+form.frqDropDown{
+  display: inline-block;
+
+}
+select.frqSelect{
+  width: 40px;
+  height: 25px;
+}
+option.frqValue{
+  text-align: center;
+}
+
+
+
+
+/*buttons*/
+div.prevQuestionOnly{
+  background-color: whitesmoke;
+  color: black;
+  font-size: 15px;
+  width: 100px;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 8px;
+  padding: 1.5px;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+
+  cursor: pointer;
+
+}
+div.prevQuestion, .nextQuestion{
+  background-color: whitesmoke;
+  color: black;
+  font-size: 15px;
+  width: 100px;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 8px;
+  padding: 1.5px;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+
+  cursor: pointer;
+
+  display: inline-block;
+  
+
+
+}
+div.prevQuestion:hover{
+  background-color: rgba(245, 245, 245, 0.893);
+}
+
+div.nextQuestion{
+  width: 70px;
+  margin-left: 25px;
+}
+
+div.nextQuestion:hover{
+  background-color: rgba(245, 245, 245, 0.893);
+}
+img.calcimages{
+  margin-top: -10px;
+  margin-bottom: -10px;
+  width: 35px;
+}
+
+
+
+
+  /*Dark Mode Stuff*/
+
+  /*
+  .App, .AppQuestions {  
+    color: white;
+    background-color: #121212;
+    top: -10px;
+    padding-top: 10px;
+    
+  }
+  .AppQuestions{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  */
+
+  @media only screen and (min-height: 670px) {
+    .AppQuestions {
+      background-color: #121212;
+      color: white;
+      position:fixed;
+      width:100%;
+      height: 100%;
+    }
+  }
+  @media only screen and (max-height: 670px) {
+    .AppQuestions {
+      background-color: #121212;
+      color: white;
+      padding-bottom: 10%;
+    }
+  }
+  .App, .AppQuestions {  
+    color: white;
+    background-color: #121212;
+    top: -10px;
+    padding-top: 10px;   
+  }
+  table {
+    border-color: white;
+  }
+  li.choices{
+    border: 3px solid var(--SATblue);
+    border-radius: 25px;
+  }
+  li.choices:hover{
+    background-color: rgba(255, 255, 255, 0.936);
+    color: black;
+  }
+
+  
