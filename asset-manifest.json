@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/SAT/static/css/main.1d3a11db.css",
+    "main.js": "/SAT/static/js/main.2e57416e.js",
+    "static/media/NoCalcIMG.png": "/SAT/static/media/NoCalcIMG.29cf1212f16694fe6b71.png",
+    "static/media/CalcIMG.png": "/SAT/static/media/CalcIMG.1b3e76487c7d73e520a5.png",
+    "index.html": "/SAT/index.html",
+    "main.1d3a11db.css.map": "/SAT/static/css/main.1d3a11db.css.map",
+    "main.2e57416e.js.map": "/SAT/static/js/main.2e57416e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1d3a11db.css",
+    "static/js/main.2e57416e.js"
+  ]
+}
