@@ -8,15 +8,17 @@ import CalcImg from './Images/CalcIMG.png';
 import Oct2020 from "./Tests/Oct2020.json";
 import Oct2020Curve from "./Tests/Oct2020Curve.json";
 
+import March2020 from "./Tests/March2020.json";
+import March2020Curve from "./Tests/March2020Curve.json";
 
-import May2020 from "./Tests/May2020.json";
-import May2020Curve from "./Tests/Oct2020Curve.json";
-
+import April2019 from "./Tests/April2019.json";
+import April2019Curve from "./Tests/April2019Curve.json";
 
 
 function App() {
   //Test Arrays
-  const testsAvail = [{
+  const testsAvail = [
+                      {
                         "index" : 0, 
                         "dateOfTest": Oct2020, 
                         "curveOfTest": Oct2020Curve, 
@@ -26,11 +28,20 @@ function App() {
 
                       {
                         "index" : 1, 
-                        "dateOfTest": May2020, 
-                        "curveOfTest": May2020Curve, 
-                        "display": "May 2020",
+                        "dateOfTest": March2020, 
+                        "curveOfTest": March2020Curve, 
+                        "display": "March 2020",
                         "link": "https://focusonlearningcenter.com/wp-content/uploads/2020/07/March-2020-SAT-Test.pdf"
-                      },]
+                      },
+                    
+                      {
+                        "index" : 2, 
+                        "dateOfTest": April2019, 
+                        "curveOfTest": April2019Curve, 
+                        "display": "April 2019",
+                        "link": "https://www.maine.gov/doe/sites/maine.gov.doe/files/inline-files/2019_SAT_Released_Test_Booklet_Final.pdf"
+                      }
+                    ]
 
   // Properties
   const [showResults, setShowResults] = useState(false);
@@ -38,7 +49,7 @@ function App() {
   const [score, setScore] = useState(0);
 
   //json Test-Specific Arrays
-  const [testAvailCurrentIndex, setTestAvailCurrentIndex] = useState(1);
+  const [testAvailCurrentIndex, setTestAvailCurrentIndex] = useState(2);
   const [testName, setTestName] = useState(testsAvail[testAvailCurrentIndex].dateOfTest);
   const [testCurve, setTestCurve] = useState(testsAvail[testAvailCurrentIndex].curveOfTest);
 
@@ -55,25 +66,25 @@ function App() {
                         {"id" : 3, "title": "Math"}];
 
   //variable that sets array questions equal to the array in json file using function that only selects one section
-  const questions = buildArray();
+  let questions = buildArray(testName);
   
-  function buildArray (){
+  function buildArray(testArr){
     const tempArray = []; 
-    for (let i = 0; i < testName.length; i++){
+    for (let i = 0; i < testArr.length; i++){
       //if full test: use all the questions
       if (fullTest){
-        tempArray.push(testName[i]);
+        tempArray.push(testArr[i]);
       }
       //combine the math sections
       else if(section === 3){
-        if(testName[i].section === 3 || testName[i].section === 4){
-          tempArray.push(testName[i]);
+        if(testArr[i].section === 3 || testArr[i].section === 4){
+          tempArray.push(testArr[i]);
         }
       }
       //select by section
       else{
-        if(testName[i].section === section){
-          tempArray.push(testName[i]);
+        if(testArr[i].section === section){
+          tempArray.push(testArr[i]);
         }
       }
     }
@@ -81,9 +92,13 @@ function App() {
   }
 
   //variable that sets array curve equal to array in json file
-  const curve = testCurve[section-1];
+  //let curve = testCurve[section-1];
 
-  
+  let curve = buildCurveArray(testCurve);
+
+  function buildCurveArray(curveArr){
+    return curveArr[section-1];
+  }
 
 
 
@@ -385,6 +400,7 @@ function App() {
 
 
     if(questions[currentQuestion].range){
+      //occurs in march 2020
       if(answer >= questions[currentQuestion].correctAns[0] &&
          answer <= questions[currentQuestion].correctAns[1]){
         responses.push({
@@ -411,6 +427,45 @@ function App() {
         }); 
       }
     }
+
+
+    else if(questions[currentQuestion].multicorrect){
+      //occurs in april 2019
+
+      let correct = false;
+
+      for (let i = 0; i < questions[currentQuestion].correctAns.length; i++){
+        if(answer == questions[currentQuestion].correctAns[i]){
+         responses.push({
+           questionNum: currentQuestion + 1,
+           correct: true,
+           correctAns: questions[currentQuestion].correctAnsDisplay,
+           selected: [value1, value2, value3, value4],
+   
+           responseSection: questions[currentQuestion].section,
+ 
+           range: "true"
+         });   
+         correct = true;
+       }
+      }
+
+
+      if(!correct){
+        responses.push({
+          questionNum: currentQuestion + 1,
+          correct: false,
+          correctAns: questions[currentQuestion].correctAnsDisplay,
+          selected: [value1, value2, value3, value4],
+  
+          responseSection: questions[currentQuestion].section,
+
+          range: "true"
+        }); 
+      }
+    }
+
+
     else{
       if(answer == questions[currentQuestion].correctAns){
         responses.push({
@@ -433,6 +488,7 @@ function App() {
         }); 
       }
     }
+    console.log(questions[currentQuestion].multicorrect);
 
 
     if(questions[currentQuestion].section == 4){
@@ -468,8 +524,22 @@ function App() {
   //test selector
 
   const handleTestChange = (e) => {
-    setTestAvailCurrentIndex(e.target.value);
-    
+
+      setTestAvailCurrentIndex(e.target.value);
+      setTestName(testsAvail[e.target.value].dateOfTest);
+      setTestCurve(testsAvail[e.target.value].curveOfTest);
+   
+      questions = buildArray(testsAvail[e.target.value].dateOfTest);
+      curve = buildCurveArray(testsAvail[e.target.value].curveOfTest);
+
+
+      let arr = buildArray(testsAvail[e.target.value].dateOfTest);
+
+      //console.log(questions);
+      console.log(curve);
+      console.log(arr);
+
+
   };
 
   return (
@@ -488,7 +558,8 @@ function App() {
                 onChange={showResults || currentQuestion || responses.questionNum == 1 ? {} : handleTestChange}>
                   <option className = "testSelectVal" value={testAvailCurrentIndex}></option>
                   <option className = "testSelectVal" value="0">October 2020</option>
-                  <option className = "testSelectVal" value="1">May 2020</option>
+                  <option className = "testSelectVal" value="1">March 2020</option>
+                  <option className = "testSelectVal" value="2">April 2019</option>
                 </select>
               </form>
           </div>
